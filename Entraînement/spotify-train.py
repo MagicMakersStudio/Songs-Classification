@@ -68,7 +68,7 @@ for nb_song in tqdm(range(0,400,100)):
 song_train_id = []
 for nb_song in tqdm(range(0,400,100)):
 	if token:
-		resuzts = sp.user_playlist_tracks(user = username, playlist_id='6vGFMO56ypEBs3c5UpJSH6', fields=None, limit=100, offset=nb_song, market=None)
+		results = sp.user_playlist_tracks(user = username, playlist_id='6vGFMO56ypEBs3c5UpJSH6', fields=None, limit=100, offset=nb_song, market=None)
 		for item in tqdm(results['items']):
 			track = item['track']
 			try:
