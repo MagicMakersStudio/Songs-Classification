@@ -41,6 +41,7 @@ sp = spotipy.Spotify(auth=token)
 
 K.clear_session()
 model = load_model("model.h5")
+graph = tf.get_default_graph()
 
 #-=-=-=-=-=-=-=-=-=-=-#
 #    PAGE ACCUEIL     #
@@ -62,8 +63,10 @@ def a():
 	tab.append([song[0]["danceability"],song[0]["loudness"]/(-60),song[0]["energy"],song[0]["valence"],song[0]["duration_ms"]/1000000,song[0]["tempo"]/1000,song[0]["speechiness"],song[0]["instrumentalness"],song[0]["acousticness"],song[0]["liveness"]])
 	tab = np.array(tab)
 	tab = tab.reshape(1,10)
-	p = model.predict(tab)
-	p = np.argmax(p)
+	global graph
+	with graph.as_default():
+		p = model.predict(tab)
+		p = np.argmax(p)
 	if p ==  2:
 		p = 'Sad Trap'
 	elif p == 1:
